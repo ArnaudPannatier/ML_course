@@ -8,3 +8,6 @@ def compute_loss(y, tx, w):
     e = y-tx.dot(w)
     N = len(y)
     return 1/(2*N)*e.T.dot(e)
+
+def compute_mse(y, tx, w):
+	return compute_loss(y, tx, w)
