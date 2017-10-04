@@ -2,9 +2,7 @@
 """ Grid Search"""
 
 import numpy as np
-import costs
 from costs import *
-from plots import *
 import datetime
 
 def generate_w(num_intervals):
@@ -31,24 +29,4 @@ def grid_search(y, tx, w0, w1):
             losses[i][j] = compute_loss(y,tx,w)
     return losses
 
-def grid_search_and_compare(y,tx, mean_x, std_x,height, weight, LSw0, LSw1):
-    # Generate the grid of parameters to be swept
-    grid_w0, grid_w1 = generate_w(num_intervals=100)
 
-    # Start the grid search
-    start_time = datetime.datetime.now()
-    grid_losses = grid_search(y, tx, grid_w0, grid_w1)
-
-    # Select the best combinaison
-    loss_star, w0_star, w1_star = get_best_parameters(grid_w0, grid_w1, grid_losses)
-    end_time = datetime.datetime.now()
-    execution_time = (end_time - start_time).total_seconds()
-
-    # Print the results
-    print("Grid Search: loss*={l}, w0*={w0}, w1*={w1}, execution time={t:.3f} seconds".format(
-          l=loss_star, w0=w0_star, w1=w1_star, t=execution_time))
-
-    # Plot the results
-    fig = compare_visualization(grid_losses, grid_w0, grid_w1, mean_x, std_x, height, weight, LSw0, LSw1)
-    fig.set_size_inches(10.0,6.0)
-    fig.savefig("grid_plot")  # Optional saving
